@@ -1,0 +1,24 @@
+{
+  "name": "js-summing",
+  "version": "1.0.0",
+  "description": "js summing algorithm benchmarks",
+  "main": "tests.js",
+  "scripts": {
+    "test": "test",
+    "start": "node tests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cinnamondev/js-summing.git"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/cinnamondev/js-summing/issues"
+  },
+  "homepage": "https://github.com/cinnamondev/js-summing#readme",
+  "dependencies": {
+    "benchmark": "^2.1.4",
+    "microtime": "^3.1.0"
+  }
+}
