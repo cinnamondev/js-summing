@@ -32,25 +32,84 @@ let m = {
         }
         return res
     },
-    // simple for loop
+    // "pairs method" non recursive
+    "pairsOpt": (arr) => {
+        if (arr.length % 2 == 1) {
+            arr.push(0);
+        }
+        let i = arr.length-1;
+        let res = 0;
+        while (i>=1) {
+            res += arr[i] + arr[i - 1]
+            i-=2;
+        }
+        return res
+    },
+    // simple for loop (naive)
     "for": (arr) => {
         let ac=0;
         for (let i=0;i<arr.length;i++) {
             ac += arr[i];
         }
         return ac
+    },
+    // simple for loop optimised
+    "forOpt": (arr) => {
+        let ac=0;
+        for (let i=arr.length;i--;) { // less 
+            ac += arr[i];
+        }
+        return ac
+    },
+    // decrementing for loop
+    "whiledec": (arr) => {
+        let ac=0;
+        let i = arr.length;
+        while (i--) {
+            ac += arr[i];
+        }
+        return ac
+    },
+    // decrementing for loop
+    "whileinc": (arr) => {
+        let ac=0;
+        let i = 0;
+        while (i<arr.length) {
+            ac += arr[i];
+            i++;
+        }
+        return ac
     }
 }
 
-let a=[1,2,3,4,5,6,23,46,2,56,7,8,3,2,5,67,8,3,2,2,56];
+function createRandomArray(n) {
+    return Array(n).fill(0).map(() => Math.round(Math.random() * 5000))
+}
+let as = [createRandomArray(3),
+    createRandomArray(10),
+    createRandomArray(50),
+    createRandomArray(75),
+    createRandomArray(100),
+    createRandomArray(500),
+    createRandomArray(1000),
+    createRandomArray(50000),
+];
+
 var suite = new Benchmark.Suite();
 // add tests
-suite.add('sum#reduce', () => m.reduce(a))
-  .add('sum#recursive', () => m.recursive(a))
-  .add('sum#pairs',() => m.pairs(a)) 
-  .add('sum#for', () => m.for(a))
+as.forEach((a)=> {
+    suite.add('sum#reduce#' + a.length, () => m.reduce(a))
+    .add('sum#recursive' + a.length, () => m.recursive(a))
+    .add('sum#pairs#' + a.length,() => m.pairs(a)) 
+    .add('sum#pairsOpt#' + a.length,() => m.pairsOpt(a)) 
+    .add('sum#for#' + a.length, () => m.for(a))
+    .add('sum#forOpt#' + a.length, () => m.forOpt(a))
+    .add('sum#whileDec#' + a.length, () => m.whiledec(a))
+    .add('sum#whileInc#' + a.length, () => m.whileinc(a))
+})
+
   // add listeners
-  .on('cycle', function(event) {
+  suite.on('cycle', function(event) {
     console.log(String(event.target));
   })
   .on('complete', function() {
