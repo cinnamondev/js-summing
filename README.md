@@ -1,2 +1,3 @@
 # js-summing
-js summing algorithm benchmarks
+
+Benchmark of methods that sum up a randomly sized javascript array
